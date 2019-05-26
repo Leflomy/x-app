@@ -38,8 +38,7 @@ class TestTestingConfig(TestCase):
         self.assertTrue(
             app.config['SQLALCHEMY_DATABASE_URI']
             == os.environ.get('DATABASE_TEST_URL')
-        )
-        self.assertFalse(app.config['DEBUG_TB_ENABLED'])  # new
+            )
 
 
 class TestProductionConfig(TestCase):
