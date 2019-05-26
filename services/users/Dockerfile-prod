@@ -1,0 +1,27 @@
+# imagen base
+FROM python:3.7.2-alpine
+
+# nuevo
+# instalando dependencias
+RUN apk update && \
+    apk add --virtual build-deps gcc python-dev musl-dev && \
+    apk add postgresql-dev && \
+    apk add netcat-openbsd
+
+#configurando directorio de trabajo
+WORKDIR /usr/src/app
+
+#copiando e instalando paquetes de requirements.txt
+COPY ./requirements.txt /usr/src/app/requirements.txt
+RUN pip install -r requirements.txt
+
+# nuevo
+# copiando entrypoint.sh
+COPY ./entrypoint-prod.sh /usr/src/app/entrypoint-prod.sh
+RUN chmod +x /usr/src/app/entrypoint-prod.sh
+
+#copiando app
+COPY . /usr/src/app
+
+#ejecutando el servidor
+CMD ["sh","-c","chmod 755 /usr/src/app/entrypoint-prod.sh && /usr/src/app/entrypoint-prod.sh"]
