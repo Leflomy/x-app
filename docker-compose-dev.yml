@@ -19,7 +19,7 @@ services:
     depends_on:  # nuevo
       - users-db
 
-  users-db:  # nuevo
+  users-db:  # nuevoo
     build:
       context: ./services/users/project/db
       dockerfile: Dockerfile
